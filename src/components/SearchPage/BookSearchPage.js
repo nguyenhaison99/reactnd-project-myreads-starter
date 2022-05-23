@@ -4,10 +4,10 @@ import SearchResults from "./SearchResults";
 
 export default class BookSearchPage extends Component {
   render() {
-    const { books } = this.props;
+    const { books, onSearch, onResetSearch } = this.props;
     return (
       <div className='search-books'>
-        <SearchBar />
+        <SearchBar onSearch={onSearch} onResetSearch={onResetSearch} />
         <SearchResults books={books} />
       </div>
     );

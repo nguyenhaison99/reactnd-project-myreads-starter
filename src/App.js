@@ -14,6 +14,41 @@ class BooksApp extends React.Component {
 
   state = {
     books: [],
+    searchBooks: [],
+  };
+
+  moveBook = (book, shelf) => {
+    BooksAPI.update(book, shelf).then((books) => {
+      // console.log(books);
+    });
+    const updatedBooks = this.state.books.map((b) => {
+      if (b.id === book.id) {
+        b.shelf = shelf;
+      }
+      return b;
+    });
+
+    this.setState({
+      books: updatedBooks,
+    });
+  };
+
+  searchForBooks = (query) => {
+    if (query.length > 0) {
+      BooksAPI.search(query).then((books) => {
+        if (books.error) {
+          this.setState({ searchBooks: [] });
+        } else {
+          this.setState({ searchBooks: books });
+        }
+      });
+    } else {
+      this.setState({ searchBooks: [] });
+    }
+  };
+
+  resetSearch = () => {
+    this.setState({ searchBooks: [] });
   };
 
   componentDidMount() {
@@ -23,7 +58,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    const { books } = this.state;
+    const { books, searchBooks } = this.state;
     return (
       <div className='app'>
         <Routes>
@@ -31,10 +66,24 @@ class BooksApp extends React.Component {
             exact
             path='/'
             element={
-              <BookListPage books={books} bookshelves={this.bookshelves} />
+              <BookListPage
+                books={books}
+                bookshelves={this.bookshelves}
+                onMove={this.moveBook}
+              />
             }
           />
-          <Route path='/search' element={<BookSearchPage books={books} />} />
+          <Route
+            path='/search'
+            element={
+              <BookSearchPage
+                books={books}
+                onMove={this.moveBook}
+                onSearch={this.searchForBooks}
+                onResetSearch={this.resetSearch}
+              />
+            }
+          />
         </Routes>
       </div>
     );

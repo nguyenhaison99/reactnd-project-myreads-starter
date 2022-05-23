@@ -1,27 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import CloseSearchButton from "./CloseSearchButton";
+import SearchBooksInput from "./SearchBooksInput";
 
 export default function SearchBar(props) {
+  const { onSearch, onResetSearch } = props;
   return (
     <div className='search-books-bar'>
-      <CloseSearchButton />
-      <SearchBooksInput />
+      <CloseSearchButton onResetSearch={onResetSearch} />
+      <SearchBooksInput onSearch={onSearch} />
     </div>
   );
 }
-
-const CloseSearchButton = () => {
-  return (
-    <Link to='/'>
-      <button className='close-search'>Close</button>
-    </Link>
-  );
-};
-
-const SearchBooksInput = () => {
-  return (
-    <div className='search-books-input-wrapper'>
-      <input type='text' placeholder='Search by title or author' />
-    </div>
-  );
-};
