@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class BookshelfChanger extends Component {
   state = {
-    value: this.props.bookshelf.key,
+    value: this.props.bookshelf,
   };
   handleChange = (event) => {
     this.setState({ value: event.target.value });

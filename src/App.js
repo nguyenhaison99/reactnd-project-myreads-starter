@@ -1,5 +1,7 @@
-import React, { Component } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { debounce } from "throttle-debounce";
+
 import * as BooksAPI from "./BooksAPI";
 import BookSearchPage from "./components/SearchPage/BookSearchPage";
 import BookListPage from "./components/ListPage/BookListPage";
@@ -18,22 +20,23 @@ class BooksApp extends React.Component {
   };
 
   moveBook = (book, shelf) => {
-    BooksAPI.update(book, shelf).then((books) => {
-      // console.log(books);
-    });
-    const updatedBooks = this.state.books.map((b) => {
-      if (b.id === book.id) {
-        b.shelf = shelf;
-      }
-      return b;
-    });
+    // update db
+    BooksAPI.update(book, shelf);
+
+    let updatedBooks = [];
+    updatedBooks = this.state.books.filter((b) => b.id !== book.id);
+
+    if (shelf !== "none") {
+      book.shelf = shelf;
+      updatedBooks = updatedBooks.concat(book);
+    }
 
     this.setState({
       books: updatedBooks,
     });
   };
 
-  searchForBooks = (query) => {
+  searchForBooks = debounce(300, (query) => {
     if (query.length > 0) {
       BooksAPI.search(query).then((books) => {
         if (books.error) {
@@ -45,7 +48,7 @@ class BooksApp extends React.Component {
     } else {
       this.setState({ searchBooks: [] });
     }
-  };
+  });
 
   resetSearch = () => {
     this.setState({ searchBooks: [] });
@@ -78,6 +81,7 @@ class BooksApp extends React.Component {
             element={
               <BookSearchPage
                 books={books}
+                searchBooks={searchBooks}
                 onMove={this.moveBook}
                 onSearch={this.searchForBooks}
                 onResetSearch={this.resetSearch}

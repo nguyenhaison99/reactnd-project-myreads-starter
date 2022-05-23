@@ -16,7 +16,7 @@ export default class BookShelf extends Component {
               <Book
                 key={book.id}
                 book={book}
-                bookshelf={bookshelf}
+                bookshelf={bookshelf.key}
                 onMove={onMove}
               />
             ))}

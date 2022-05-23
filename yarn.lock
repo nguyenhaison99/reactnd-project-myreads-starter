@@ -9007,6 +9007,11 @@
   "resolved" "https://registry.npmjs.org/throat/-/throat-4.1.0.tgz"
   "version" "4.1.0"
 
+"throttle-debounce@^5.0.0":
+  "integrity" "sha512-2iQTSgkkc1Zyk0MeVrt/3BvuOXYPl/R8Z0U2xxo9rjwNciaHDG3R+Lm6dh4EeUci49DanvBnuqI6jshoQQRGEg=="
+  "resolved" "https://registry.npmjs.org/throttle-debounce/-/throttle-debounce-5.0.0.tgz"
+  "version" "5.0.0"
+
 "through@^2.3.6":
   "integrity" "sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU="
   "resolved" "http://registry.npmjs.org/through/-/through-2.3.8.tgz"
