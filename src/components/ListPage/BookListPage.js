@@ -1,14 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import BookShelf from "./BookShelf";
-
-const OpenSearchBtn = () => {
-  return (
-    <div className='open-search'>
-      <Link to='/search'>Add a book</Link>
-    </div>
-  );
-};
+import BookShelves from "./BookShelves";
+import { OpenSearch } from "./OpenSearch";
 
 export default class BookListPage extends Component {
   render() {
@@ -17,8 +9,8 @@ export default class BookListPage extends Component {
         <div className='list-books-title'>
           <h1>MyReads</h1>
         </div>
-        <BookShelf />
-        <OpenSearchBtn />
+        <BookShelves />
+        <OpenSearch />
       </div>
     );
   }
