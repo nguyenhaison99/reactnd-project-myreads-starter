@@ -1,9 +1,10 @@
 import React from "react";
 
-export const BookShelfChanger = () => {
+export const BookShelfChanger = (props) => {
+  const { bookshelf } = props;
   return (
     <div className='book-shelf-changer'>
-      <select>
+      <select value={bookshelf.key}>
         <option value='move' disabled>
           Move to...
         </option>
